@@ -11,17 +11,13 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
-    - name: Echo pat
-      env:
-        unbound_pat: ${{ secrets.unbound_pat }}
-      run: echo $unbound_pat
+      run: docker build . --file Dockerfile --tag unbound:$(date +%s)
     - name: Auth to Docker registry
       env:
         unbound_pat: ${{ secrets.unbound_pat }}
         github_username: ${{ secrets.github_username }}
       run: docker login docker.pkg.github.com -u $github_username -p $unbound_pat
     - name: Tag Image
-      run:  docker tag IMAGE_ID docker.pkg.github.com/patrickbeam/unbound/IMAGE_NAME:VERSION
+      run:  docker tag unbound:$(date +%s) docker.pkg.github.com/patrickbeam/unbound/unbound:$(date +%s)
     - name: Publish Image
-      run: docker push docker.pkg.github.com/patrickbeam/unbound/IMAGE_NAME:VERSION
+      run: docker push docker.pkg.github.com/patrickbeam/unbound/unbound:$(date +%s)
