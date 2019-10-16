@@ -13,6 +13,8 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
     - name: Echo pat
+      env:
+        unbound_pat: ${{ secrets.unbound_pat }}
       run: echo $unbound_pat
     - name: Auth to Docker registry
       run: echo $unbound_pat | docker login docker.pkg.github.com -u $github_username --password-stdin 
