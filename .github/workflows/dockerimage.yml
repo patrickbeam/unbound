@@ -19,6 +19,7 @@ jobs:
     - name: Auth to Docker registry
       env:
         unbound_pat: ${{ secrets.unbound_pat }}
+        github_username: ${{ secrets.github_username }}
       run: docker login docker.pkg.github.com -u $github_username -p $unbound_pat
     - name: Tag Image
       run:  docker tag IMAGE_ID docker.pkg.github.com/patrickbeam/unbound/IMAGE_NAME:VERSION
