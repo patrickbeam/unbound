@@ -13,7 +13,7 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
     - name: Auth to Docker registry
-      run: docker login docker.pkg.github.com --username patrickbeam $unbound_pat
+      run: docker login docker.pkg.github.com --username patrickbeam --password-stdin 
     - name: Tag Image
       run:  docker tag IMAGE_ID docker.pkg.github.com/patrickbeam/unbound/IMAGE_NAME:VERSION
     - name: Publish Image
